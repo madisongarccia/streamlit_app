@@ -18,16 +18,22 @@ with st.expander(label = 'Data Description'):
              This app allows anyone the opportunity to explore the data gathered from
              this process, to gain a better understanding of the job 
              market in LA.""")
-    
+
+
+# map of all the locations in my df
 map_sc = folium.Map(location=[34.052235, -118.243683], zoom_start=7)
 geolocator = Nominatim(user_agent="southern_california")
-cities_df = data['City']
-
-for index, row in cities_df.iterrows():
-    location = geolocator.geocode(row['City'] + ', Southern California')
-    if location:
-        folium.Marker(location=[location.latitude, location.longitude], popup=row['City']).add_to(map_sc)
-
+cities = data['City']
+for city in cities:
+    if isinstance(city, str):
+        if 'Los Angeles' in city:
+            folium.Marker(location=[34.052235, -118.243683], popup=row['City']).add_to(map_sc)
+        else:
+            city = city.strip('\n, ')
+            print(f'city: {city}')
+            location = geolocator.geocode(city + ', Southern California')
+            if location:
+                folium.Marker(location=[location.latitude, location.longitude], popup=row['City']).add_to(map_sc)
 map_sc.save('socal_cities.html')
 st.write(open('socal_cities.html').read(), unsafe_allow_html=True)
 
