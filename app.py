@@ -82,11 +82,6 @@ for city in cities:
                 folium.Marker(location=[location.latitude, location.longitude], popup=city).add_to(map_sc)
 map_html = map_sc._repr_html_()
 st.components.v1.html(map_html, width = 800, height=500)
-    
-# How do your options change depending on work environment
-    
-
-# choose company to see what jobs they're hiring for
 
 # salary list to see which companies/jobs have that pay
 st.header('Question 2: What Salary can I expect for a given job?')
@@ -144,6 +139,7 @@ if is_in_dataframe:
 else:
     st.write(f'Sorry, there currently is no data on {company.upper()}\'s job postings')
 
+# final list of all companies considered in this website
 company_names = data['Company'].sort_values().unique()
 with st.expander(label='Click to see all companies with job data'):
     for name in company_names:
