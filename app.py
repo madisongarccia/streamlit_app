@@ -31,10 +31,12 @@ with st.sidebar:
               "What is a realistic pay range for my experience?". 
              
              App Usage:\n
-             The user has the ability to enter a chosen salary range to view a list of 
-             both companies and titles that offer positions in that salary range. This app
-              also includes an interactive map of Los Angeles, which marks all the cities containing 
-             Data Science job postings. 
+             This app includes an interactive map of Los Angeles, which marks all the cities containing 
+             Data Science job postings. The user also has the ability to enter a chosen salary range to view a list of 
+             both companies and titles that offer positions in that salary range. If you have a 
+             specific company you hope to work for, there is an option to input a company name and view a list of 
+             all the positions that company may be hiring for. At the bottom of the page, is a list of all the 
+             companies that this website currently holds data on. 
              """)
 
 # map of all the locations in my df
@@ -132,8 +134,17 @@ company = st.text_input(label ='Enter a company', value = 'ex: TikTok')
 
 is_in_dataframe = data['Company'].str.lower().str.contains(company.lower()).any()
 if is_in_dataframe:
-
     st.write(f'Yes {company.upper()} is currently hiring!')
     st.write(f'Here are the positions they are looking to fill:')
+    df = data[data['Company'].str.lower().str.contains(company.lower())]
+    positions = df['Title'].unique()
+    pays = df['Pay'].unique()
+    for position, pay in zip(positions, pays):
+        st.write(f' - {position}')
 else:
     st.write(f'Sorry, there currently is no data on {company.upper()}\'s job postings')
+
+company_names = data['Company'].sort_values().unique()
+with st.expander(label='Click to see all companies with job data'):
+    for name in company_names:
+        st.write(name)
