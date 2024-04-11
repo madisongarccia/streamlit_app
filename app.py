@@ -2,6 +2,7 @@ import plotly.express as px
 import pandas as pd
 import streamlit as st
 import folium
+import geopy
 from geopy.geocoders import Nominatim
 from uszipcode import SearchEngine
 from geopy.exc import GeocoderTimedOut

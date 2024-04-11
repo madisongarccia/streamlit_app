@@ -2,9 +2,6 @@ plotly.express
 pandas
 folium
 geopy
-geopy.geocoders
-Nominatum
 uszipcode
-geopy.exc
 SearchEngine
 GeocoderTimedOut
