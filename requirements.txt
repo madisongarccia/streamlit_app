@@ -3,5 +3,3 @@ pandas
 folium
 geopy
 uszipcode
-SearchEngine
-GeocoderTimedOut
